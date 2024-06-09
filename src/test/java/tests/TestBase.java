@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class TestBase {
     @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() throws Exception {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
@@ -21,13 +21,28 @@ public class TestBase {
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
+
+        Configuration.remote = System.getProperty("Wdhost","https://user1:1234@selenoid.autotests.cloud/wd/hub");
+        String browser = System.getProperty("Browser","chrome");
+        if (browser.equals("chrome")) {
+            Configuration.browserVersion = System.getProperty("ChromeVersion", "125.0");
+        }
+        else if (browser.equals("firefox")) {
+            Configuration.browserVersion = System.getProperty("FirefoxVersion","126.0");
+        }
+        else if (browser.equals("opera")) {
+            Configuration.browserVersion = System.getProperty("OperaVersion","110.0");
+        }
+        else  {
+            throw new Exception("Неверный браузер! "+browser);
+        }
+        Configuration.browserSize = System.getProperty("BrowserSize","1920x1080");
     }
 
     @AfterEach
