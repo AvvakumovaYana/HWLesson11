@@ -74,6 +74,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setHobbies(String value){
+        hobbiesInput.scrollTo();
         hobbiesInput.$(byText(value)).click();
         return this;
     }
@@ -89,6 +90,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setState(String value){
+        stateInput.scrollTo();
         stateInput.click();
         stateInput.find(byText(value)).click();
         return this;
