@@ -14,7 +14,6 @@ import java.util.Map;
 public class TestBase {
     @BeforeAll
     static void beforeAll() throws Exception {
-        Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         Configuration.timeout = 6000;
@@ -29,18 +28,18 @@ public class TestBase {
         Configuration.browserCapabilities = capabilities;
 
         Configuration.remote = System.getProperty("Wdhost","https://user1:1234@selenoid.autotests.cloud/wd/hub");
-        String browser = System.getProperty("Browser","chrome");
-        if (browser.equals("chrome")) {
+        Configuration.browser = System.getProperty("Browser","chrome");
+        if (Configuration.browser.equals("chrome")) {
             Configuration.browserVersion = System.getProperty("ChromeVersion", "125.0");
         }
-        else if (browser.equals("firefox")) {
+        else if (Configuration.browser.equals("firefox")) {
             Configuration.browserVersion = System.getProperty("FirefoxVersion","126.0");
         }
-        else if (browser.equals("opera")) {
+        else if (Configuration.browser.equals("opera")) {
             Configuration.browserVersion = System.getProperty("OperaVersion","110.0");
         }
-        else  {
-            throw new Exception("Неверный браузер! "+browser);
+        else {
+            throw new Exception("Неверный браузер! " + Configuration.browser);
         }
         Configuration.browserSize = System.getProperty("BrowserSize","1920x1080");
     }
