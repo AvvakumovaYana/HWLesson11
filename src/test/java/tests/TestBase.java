@@ -35,9 +35,6 @@ public class TestBase {
         else if (Configuration.browser.equals("firefox")) {
             Configuration.browserVersion = System.getProperty("FirefoxVersion","123.0");
         }
-        else if (Configuration.browser.equals("opera")) {
-            Configuration.browserVersion = System.getProperty("OperaVersion","107.0");
-        }
         else {
             throw new Exception("Неверный браузер! " + Configuration.browser);
         }
