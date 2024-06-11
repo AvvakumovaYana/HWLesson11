@@ -70,4 +70,70 @@ public class RegistrationTest extends TestBase {
                     "Test address", "NCR Noida");
         });
     }
+
+    @DisplayName("Проверка заполнения и отправки только обязательных полей формы")
+    @Test
+    void mainFormFieldsTest() {
+        step("Открываем главную страницу", () -> {
+            registrationPage.openPage();
+        });
+        step("Удаляем баннеры со страницы", () -> {
+            registrationPage.removeBanners();
+        });
+        step("Заполняем поле First Name", () -> {
+            registrationPage.setFistNameInput("Yana");
+        });
+        step("Заполняем поле Last Name", () -> {
+            registrationPage.setLastNameInput("Avvakumova");
+        });
+        step("Заполняем поле Gender", () -> {
+            registrationPage.setGenderInput("Female");
+        });
+        step("Заполняем поле Mobile(", () -> {
+            registrationPage.setNumberInput("7987654321");
+        });
+        step("Заполняем поле Date of Birth", () -> {
+            registrationPage.setDate("1993", "6", "10");
+        });
+        step("Нажимаем кнопку Submit", () -> {
+            registrationPage.clickSubmit();
+        });
+        step("Проверяем таблицу с отправленными значениями", () -> {
+            registrationPage.checkTable("Yana Avvakumova", " ",
+                    "Female", "7987654321",
+                    "10 July,1993", " ",
+                    " ", " ",
+                    " ", " ");
+        });
+    }
+
+    @DisplayName("Проверка того, что форма не отправилась без заполнения обязательного поля")
+    @Test
+    void negativeFormFieldsTest() {
+        step("Открываем главную страницу", () -> {
+            registrationPage.openPage();
+        });
+        step("Удаляем баннеры со страницы", () -> {
+            registrationPage.removeBanners();
+        });
+        step("Заполняем поле Last Name", () -> {
+            registrationPage.setLastNameInput("Avvakumova");
+        });
+        step("Заполняем поле Gender", () -> {
+            registrationPage.setGenderInput("Female");
+        });
+        step("Заполняем поле Mobile(", () -> {
+            registrationPage.setNumberInput("7987654321");
+        });
+        step("Заполняем поле Date of Birth", () -> {
+            registrationPage.setDate("1993", "6", "10");
+        });
+        step("Нажимаем кнопку Submit", () -> {
+            registrationPage.clickSubmit();
+        });
+        step("Проверяем, что форма не отправлена, таблица не отображается", () -> {
+            registrationPage.checkTableNotVisible();
+        });
+    }
+
 }
