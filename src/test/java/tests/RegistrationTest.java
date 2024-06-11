@@ -71,6 +71,7 @@ public class RegistrationTest extends TestBase {
         });
     }
 
+    @Tag("main")
     @DisplayName("Проверка заполнения и отправки только обязательных полей формы")
     @Test
     void mainFormFieldsTest() {
@@ -107,6 +108,7 @@ public class RegistrationTest extends TestBase {
         });
     }
 
+    @Tag("main")
     @DisplayName("Проверка того, что форма не отправилась без заполнения обязательного поля")
     @Test
     void negativeFormFieldsTest() {
@@ -135,5 +137,4 @@ public class RegistrationTest extends TestBase {
             registrationPage.checkTableNotVisible();
         });
     }
-
 }

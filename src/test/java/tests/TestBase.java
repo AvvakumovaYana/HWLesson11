@@ -42,14 +42,17 @@ public class TestBase {
         Configuration.browserSize = System.getProperty("BrowserSize","1920x1080");
     }
 
-    @AfterEach
-    void addAttachments() {
+    private void addAttachments() {
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
     }
+
+    @AfterEach
     void afterEach() {
         Selenide.closeWebDriver();
+
+        addAttachments();
     }
 }
